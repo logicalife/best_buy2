@@ -1,6 +1,6 @@
-import promotions
+from promotions import Promotion
 
-class Product():
+class Product:
     """This class is for the product with name, price and quantity
       as initializers"""
     def __init__(self, name, price, quantity):
@@ -9,7 +9,7 @@ class Product():
             self.price = float(price)
             self.quantity = int(quantity)
             self.active = True
-            self.promotion = "None"
+            self.promotion = None
         except:
             raise ValueError()
 
@@ -55,8 +55,7 @@ class Product():
         if self.get_promotion() == "None":
             return self.price*buy_quantity
         else:
-            price = promotions.apply_promotion()
-            return price*buy_quantity
+            return self.promotion.apply_promotion(self.price, buy_quantity)
 
     def get_promotion(self):
         return self.promotion
@@ -79,7 +78,10 @@ class NonStockedProduct(Product):
     def buy(self, buy_quantity):
         """This method accepts quntity of item and if stock available, it deducts from stock
          and returns value"""
-        return self.price*buy_quantity
+        if self.get_promotion() == "None":
+            return self.price * buy_quantity
+        else:
+            return self.promotion.apply_promotion(self.price, buy_quantity)
 
 
 class LimitedProduct(Product):

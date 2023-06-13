@@ -54,7 +54,7 @@ def start(store_name):
         print("When you want to finish order, enter empty text.")
         while True:
           product_num = input("\nWhich product # do you want?")
-          quantity = int(input("What amount do you want?"))
+          quantity = input("What amount do you want?")
           if product_num =="" or quantity == "":
             if len(shopping_list) == 0:
               break
